@@ -10,10 +10,10 @@ namespace SchoolManagement.Application.Interface
     public interface IStudent
     {
         public Task<List<CreateUpdateStudentDto>> GetStudentsAsync();
-        //public Task<GetUserDto> GetUserByIdAsync(int id);
+        public Task<CreateUpdateStudentDto> GetStudentByIdAsync(int id);
         public Task<CreateUpdateStudentDto> CreateStudentAsync(CreateUpdateStudentDto student);
-        //public Task<User> UpdateUserAsync(UpdateUserDto user);
-        public Task<bool> DeleteStudentAsync(int id);
 
+        public Task<bool> DeleteStudentAsync(int id);
+        Task<CreateUpdateStudentDto> UpdateStudentAsync(CreateUpdateStudentDto studentDto);
     }
 }

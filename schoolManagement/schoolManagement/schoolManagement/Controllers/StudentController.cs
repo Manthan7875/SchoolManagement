@@ -65,6 +65,38 @@ namespace schoolManagement.Controllers
             return Ok(result);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetStudentById(int id)
+        {
+            var student = await _mediator.Send(new GetStudentByIdQuery(id));
+            if (student == null)
+            {
+                return NotFound("Student not found.");
+            }
+
+            return Ok(student);
+        }
+
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateStudent(int id, [FromBody] CreateUpdateStudentDto studentDto)
+        {
+            if (id != studentDto.Id)
+            {
+                return BadRequest("Student ID mismatch.");
+            }
+
+            var command = new UpdateStudentCommand(studentDto);
+            var updatedStudent = await _mediator.Send(command);
+
+            if (updatedStudent == null)
+            {
+                return NotFound("Student not found.");
+            }
+
+            return Ok(updatedStudent);
+        }
+
 
     }
 }
